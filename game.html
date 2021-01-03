@@ -56,7 +56,7 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
 
 [[Get closer-&gt;The Porch]]
 
-[[Continue walking-&gt;The Cabin]]</tw-passagedata><tw-passagedata pid="4" name="The Porch" tags="" position="412,639" size="100,100">The wooden floor of the porch is wet from the melted snow of your boots. |from_outside)[You are safe from the snow by the awning above... it feels warmer than the outside already.]
+[[Continue walking-&gt;The Cabin]]</tw-passagedata><tw-passagedata pid="4" name="The Porch" tags="" position="412,639" size="100,100">The wooden floor of the porch is wet from the melted snow of your boots. |sweepable)[The water turns the dust and dirt on the floor into a slightly muddy mess. ]|from_outside)[You are safe from the snow by the awning above... it feels warmer than the outside already. ]
 
 [[A note-&gt;The Note]] is attached to the door, written in fine ink and cursive calligraphy. How fancy...
 
@@ -66,6 +66,7 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
 	(set: $action_history to it + (a: &quot;You have swept the porch&quot;))
 	(display: Sidebar)
 	(replace: ?sweep)[]
+	(replace: ?sweepable)[]
   ]
 }]
 
@@ -75,7 +76,10 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
 {
 (if: (history:) contains &quot;The Note&quot;)[(show: ?note_read)]
 (if: last of (history:) is &quot;The Cabin&quot;)[(show: ?from_outside)]
-(if: $tasks_todo contains &quot;sweep porch&quot; and $inventory contains &quot;broom&quot;)[(show: ?sweep)]
+(if: $tasks_todo contains &quot;sweep porch&quot;)[
+  (show: ?sweepable)
+  (if: $inventory contains &quot;broom&quot;)[(show: ?sweep)]
+]
 }</tw-passagedata><tw-passagedata pid="5" name="The Note" tags="" position="262,789" size="100,100">&quot;To my housekeeper:
 
 As you are reading this note, I am not home at the moment of your arrival. My apologies. Make yourself at home and take care of everything in my absence, and you shall be free to rest from the cold. Otherwise, no misdeed shall be unpunished...
@@ -83,7 +87,7 @@ As you are reading this note, I am not home at the moment of your arrival. My ap
 Be well,
 -- The Great Grunfledorf&quot;
 
-[[...Okay-&gt;The Porch]]</tw-passagedata><tw-passagedata pid="6" name="The Hall" tags="" position="412,789" size="100,100">The entrance hall is small, but so much warmer than the outside. |coat&gt;[There are furry coats hanging from hooks attached to the door].
+[[...Okay-&gt;The Porch]]</tw-passagedata><tw-passagedata pid="6" name="The Hall" tags="" position="413,789" size="100,100">The entrance hall is small, but so much warmer than the outside. |coat&gt;[There are furry coats hanging from hooks attached to the door].
 
 [[Exit the door.-&gt;The Porch]]
 
