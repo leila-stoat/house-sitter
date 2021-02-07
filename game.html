@@ -54,7 +54,7 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
 
 [[Get closer-&gt;The Porch]]
 
-[[Continue walking-&gt;The Cabin]]</tw-passagedata><tw-passagedata pid="4" name="The Porch" tags="" position="411,639" size="100,100">The wooden floor of the porch is wet from the melted snow of your boots. |sweepable)[The water turns the dust and dirt on the floor into a slightly muddy mess. ]|from_outside)[You are safe from the snow by the awning above... it feels warmer than the outside already. ]
+[[Continue walking-&gt;The Cabin]]</tw-passagedata><tw-passagedata pid="4" name="The Porch" tags="" position="411,639" size="100,100">The wooden floor of the porch is wet from the melted snow of your boots. |sweepable)[The water turns the dust and dirt on the floor into a slightly muddy mess. ]|from_outside)[You are safe from the snow by the awning above... it feels warmer than the cruel outdoors already. ]
 
 [[A note-&gt;The Note]] is attached to the door, written in fine ink and cursive calligraphy. How fancy...
 
@@ -74,9 +74,12 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
 {
 (if: (history:) contains &quot;The Note&quot;)[(show: ?note_read)]
 (if: last of (history:) is &quot;The Cabin&quot;)[(show: ?from_outside)]
+
 (if: $tasks_todo contains &quot;sweep porch&quot;)[
   (show: ?sweepable)
-  (if: $inventory contains &quot;broom&quot;)[(show: ?sweep)]
+  (if: $inventory contains &quot;broom&quot;)[
+    (show: ?sweep)
+  ]
 ]
 }</tw-passagedata><tw-passagedata pid="5" name="The Note" tags="" position="262,789" size="100,100">&quot;To my housekeeper:
 
@@ -114,7 +117,27 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 ]
 (else:)[
   [[Go towards the lights-&gt;The Elf Maiden]]
-]</tw-passagedata><tw-passagedata pid="8" name="The Living Room" tags="" position="412,939" size="100,100">The living room is large and furnished. A fireplace is embedded on the wall, opposite to a large sofa. (if: $tasks_todo contains &quot;light fireplace&quot;)[The warm light of the fire fills the room.]
+]</tw-passagedata><tw-passagedata pid="8" name="The Living Room" tags="" position="412,939" size="100,100">The living room is large and furnished|sweepable)[, although the floor is covered with a thin layer of mud and dirt]. A fireplace is embedded on the wall, opposite to a large sofa|dustable)[, covered in dust]. |fire)[The warm light of the fire fills the room.]
+
+|sweep_living)[{
+  (link: &quot;Sweep Living Room&quot;)[
+	(set: $tasks_todo to it - (a:&quot;sweep living room&quot;))
+	(set: $action_history to it + (a: &quot;You have swept the living room&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?sweepable)[]
+	(replace: ?sweep_living)[]
+  ]
+}]
+
+|dust_living)[{
+  (link: &quot;Dust Living Room&quot;)[
+	(set: $tasks_todo to it - (a:&quot;dust living room&quot;))
+	(set: $action_history to it + (a: &quot;You have dusted the living room&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?dustable)[]
+	(replace: ?dust_living)[]
+  ]
+}]
 
 |light_fire)[{
   (link: &quot;Light the fireplace&quot;)[
@@ -124,6 +147,7 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 	(if: $inventory contains &quot;coat&quot;)[
 	  (show: ?sofa)
 	]
+	(show: ?fire)
 	(replace: ?light_fire)[]
   ]
 }]
@@ -137,67 +161,232 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 [[Go upstairs-&gt;The Bedroom]]
 
 {
-  (if: not ($tasks_todo contains &quot;light fireplace&quot;))[
+  (if: $tasks_todo contains &quot;light fireplace&quot;)[
+    (if: $inventory contains &quot;firewood&quot;)[
+	  (show: ?light_fire)
+	]
+  ]
+  (else:)[
+    (show: ?fire)
 	(if: $inventory contains &quot;coat&quot;)[
 	  (show: ?sofa)
 	]
   ]
-  (else:)[
-	(if: $inventory contains &quot;firewood&quot;)[
-	  (show: ?light_fire)
+  
+  (if: $tasks_todo contains &quot;sweep living room&quot;)[
+    (show: ?sweepable)
+    (if: $inventory contains &quot;broom&quot;)[
+      (show: ?sweep_living)
 	]
   ]
-}</tw-passagedata><tw-passagedata pid="9" name="The Kitchen" tags="" position="325,1090" size="100,100">[[Go to the living room-&gt;The Living Room]]
+  
+  (if: $tasks_todo contains &quot;dust living room&quot;)[
+    (show: ?dustable)
+    (if: $inventory contains &quot;duster&quot;)[
+      (show: ?dust_living)
+	]
+  ]
+}</tw-passagedata><tw-passagedata pid="9" name="The Kitchen" tags="" position="325,1090" size="100,100">The kitchen is wide and long, the floor covered in tiles and the walls lined with cupboards and utilities. A (link-reveal: &quot;fridge&quot;)[(show: ?fridge)] stands tall against the farthest corner.|sweepable)[ The tiled floor is covered in a layer of dust and grime.](if: $cooked_plate is &quot;cookies&quot;)[ There is a plate of warm cookies on the table.](if: $cooked_plate is &quot;chicken&quot;)[ There is a golden roasted chicken sitting delicious on the table.]
+
+|fridge)[(if: $cooked_plate is &quot;chicken&quot;)[The fridge is now empty.](else:)[In the fridge, a whole chicken sits plucked and clean, ready for the cooking. (if: $inventory contains &quot;recipe book&quot;)[According to the recipe book, it&#39;d really go well with some potatoes...]]]
+
+|sweep_kitchen)[{
+  (link: &quot;Sweep the Floor&quot;)[
+	(set: $tasks_todo to it - (a:&quot;sweep kitchen&quot;))
+	(set: $action_history to it + (a: &quot;You have sweeped the kitchen&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?sweepable)[]
+	(replace: ?sweep_kitchen)[]
+  ]
+}]
+
+|cook_cookies)[{
+  (link: &quot;Bake Some Cookies&quot;)[
+	(set: $tasks_todo to it - (a:&quot;cook&quot;))
+	(set: $action_history to it + (a: &quot;You have baked some cookies&quot;))
+	(set: $cooked_plate to &quot;cookies&quot;)
+	(display: &quot;Sidebar&quot;)
+	(replace: ?cook_cookies)[]
+	(replace: ?cook_chicken)[]
+  ]
+}]
+
+|cook_chicken)[{
+  (link: &quot;Roast The Chicken&quot;)[
+	(set: $tasks_todo to it - (a:&quot;cook&quot;))
+	(set: $action_history to it + (a: &quot;You have roasted the chicken&quot;))
+	(set: $cooked_plate to &quot;chicken&quot;)
+	(display: &quot;Sidebar&quot;)
+	(replace: ?cook_cookies)[]
+	(replace: ?cook_chicken)[]
+  ]
+}]
+
+[[Go to the living room-&gt;The Living Room]]
 
 [[Go downstairs-&gt;The Basement]]
 
-[[Enter the closet-&gt;The Broom Closet]]</tw-passagedata><tw-passagedata pid="10" name="The Bedroom" tags="" position="487,1089" size="100,100">The main bedroom is large and rustic, mainly containing a large double bed with heavy blankets and pillows. The rest of the furniture of the place is a wide cupboard, a wardrobe against the wall and a coat rack with nothing on it.
+[[Enter the closet-&gt;The Broom Closet]]
 
-At the wall opposite to the entrance door there is another door, likely a bathroom.
+{
+  (if: $tasks_todo contains &quot;sweep kitchen&quot;)[
+    (show: ?sweepable)
+    (if: $inventory contains &quot;broom&quot;)[
+      (show: ?sweep_kitchen)
+	]
+  ]
+  
+  (if: $tasks_todo contains &quot;cook&quot;)[
+    (if: $inventory contains &quot;cookie mix&quot;)[
+	  (show: ?cook_cookies)
+	]
+	(if: $inventory contains all of (a: &quot;recipe book&quot;, &quot;potatoes&quot;))[
+	  (show: ?cook_chicken)
+	]
+  ]
+}</tw-passagedata><tw-passagedata pid="10" name="The Bedroom" tags="" position="487,1089" size="100,100">The main bedroom is large and rustic, mainly containing a large double bed with heavy blankets and pillows. The rest of the furniture of the place is a wide cupboard, a wardrobe against the wall, a bookcase and a coat rack with nothing on it.
+
+At the wall opposite to the entrance door there is another door, likely a bathroom. |recipe_book&gt;[A large book is slightly dislodged from the book case. On the spine, it reads: &quot;Excellent Recipes For Good Housewives.&quot;]
+
+|sweep_bedroom)[{
+  (link: &quot;Sweep Bedroom&quot;)[
+	(set: $tasks_todo to it - (a:&quot;sweep bedroom&quot;))
+	(set: $action_history to it + (a: &quot;You have swept the bedroom&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?sweepable)[]
+	(replace: ?sweep_bedroom)[]
+  ]
+}]
+
+|dust_bedroom)[{
+  (link: &quot;Dust Bedroom&quot;)[
+	(set: $tasks_todo to it - (a:&quot;dust bedroom&quot;))
+	(set: $action_history to it + (a: &quot;You have dusted the bedroom&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?dustable)[]
+	(replace: ?dust_bedroom)[]
+  ]
+}]
+
+|pick_book)[{
+  (link: &quot;Take the Book&quot;)[
+	(set: $inventory to it + (a:&quot;recipe book&quot;))
+	(set: $action_history to it + (a: &quot;You have picked up the recipe book&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?recipe_book)[]
+	(replace: ?pick_book)[]
+  ]
+}]
 
 [[Sleep on the bed-&gt;Sleep (Bedroom)]]
 
 [[Go in the bathroom-&gt;The Bathroom]]
 
-[[Go downstairs-&gt;The Living Room]]</tw-passagedata><tw-passagedata pid="11" name="The Bathroom" tags="" position="487,1239" size="100,100">The bathroom is surprisingly luxurious for a cabin in the middle of the woods, entirely decorated with tiles, furry carpets by the bathtub and the toilet, and a vanity with a large mirror. (if: $tasks_todo contains &quot;clean bathtub&quot;)[The bottom of the bathtub is coated in a noticeable layer of grime]
+[[Go downstairs-&gt;The Living Room]]
+
+{
+  (if: $tasks_todo contains &quot;sweep living room&quot;)[
+    (show: ?sweepable)
+    (if: $inventory contains &quot;broom&quot;)[
+      (show: ?sweep_bedroom)
+	]
+  ]
+  
+  (if: $tasks_todo contains &quot;dust living room&quot;)[
+    (show: ?dustable)
+    (if: $inventory contains &quot;duster&quot;)[
+      (show: ?dust_bedroom)
+	]
+  ]
+  
+  (if: $inventory contains &quot;recipe book&quot;)[
+    (replace:?recipe_book)[]
+  ](else:)[
+    (show: ?pick_book)
+  ]
+}</tw-passagedata><tw-passagedata pid="11" name="The Bathroom" tags="" position="487,1239" size="100,100">The bathroom is surprisingly luxurious for a cabin in the middle of the woods, entirely decorated with tiles, furry carpets by the bathtub and the toilet, and a vanity with a large mirror. |grime)[The bottom of the bathtub is coated in a noticeable layer of grime]
 
 [[Go back out.-&gt;The Bedroom]]
 
 |clean_tub)[{
   (link: &quot;Clean the Bathtub&quot;)[
-	(set: $tasks_todo to $it - (a:&quot;clean bathtub&quot;))
+	(set: $tasks_todo to it - (a:&quot;clean bathtub&quot;))
 	(set: $action_history to it + (a: &quot;You have cleaned the bathtub&quot;))
 	(display: &quot;Sidebar&quot;)
 	(show: ?bath)
 	(replace: ?clean_tub)[]
+	(replace: ?grime)[]
   ]
 }]
 
 |bath)[[[Fill the Bathtub-&gt;Bath]]]
 
 {
-(if: not $tasks_todo contains &quot;clean bathtub&quot;)[
-	(show: ?bath)
-]
-(else:)[
+  (if: $tasks_todo contains &quot;clean bathtub&quot;)[
+    (show: ?grime)
 	(if: $inventory contains &quot;bucket&quot;)[
-		(show: ?clean_tub)
+	  (show: ?clean_tub)
 	]
-]
-}</tw-passagedata><tw-passagedata pid="12" name="The Basement" tags="" position="222,1236" size="100,100">|firewood&gt;[Under the stairs sits a pile of chopped firewood].
+  ](else:)[
+	(show: ?bath)
+  ]
+}</tw-passagedata><tw-passagedata pid="12" name="The Basement" tags="" position="220,1236" size="100,100">Going downstairs leads into the slightly damp and chilly basement... not a very pleasant place to be, and a bit cluttered to be honest. |firewood&gt;[ Under the stairs sits a pile of chopped firewood.] |potatoes&gt;[There&#39;s a sack of potatoes hanging near the far corner.]
+
+|sweep_basement)[{
+  (link: &quot;Sweep Basement&quot;)[
+	(set: $tasks_todo to it - (a:&quot;sweep basement&quot;))
+	(set: $action_history to it + (a: &quot;You have swept the basement&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?sweepable)[]
+	(replace: ?sweep_basement)[]
+  ]
+}]
+
+|dust_basement)[{
+  (link: &quot;Dust Basement&quot;)[
+	(set: $tasks_todo to it - (a:&quot;dust basement&quot;))
+	(set: $action_history to it + (a: &quot;You have dusted the basement&quot;))
+	(display: &quot;Sidebar&quot;)
+	(replace: ?dustable)[]
+	(replace: ?dust_basement)[]
+  ]
+}]
 
 [[Go back upstairs-&gt;The Kitchen]]
 {
-(unless: $inventory contains &quot;firewood&quot;)[
-	(click: ?firewood)[
-		(set: $inventory to it + (a: &quot;firewood&quot;))
-		(set: $action_history to it + (a: &quot;You picked up some firewood&quot;))
-		(display: &quot;Sidebar&quot;)
+  (unless: $inventory contains &quot;firewood&quot;)[
+	  (click: ?firewood)[
+		  (set: $inventory to it + (a: &quot;firewood&quot;))
+		  (set: $action_history to it + (a: &quot;You picked up some firewood&quot;))
+		  (display: &quot;Sidebar&quot;)
+	  ]
+  ]
+  
+  (unless: $inventory contains &quot;potatoes&quot;)[
+	  (click: ?potatoes)[
+		  (set: $inventory to it + (a: &quot;potatoes&quot;))
+		  (set: $action_history to it + (a: &quot;You picked up some potatoes&quot;))
+		  (display: &quot;Sidebar&quot;)
+	  ]
+  ]
+
+  (if: $tasks_todo contains &quot;sweep basement&quot;)[
+    (show: ?sweepable)
+    (if: $inventory contains &quot;broom&quot;)[
+      (show: ?sweep_basement)
 	]
-]
+  ]
+  
+  (if: $tasks_todo contains &quot;dust basement&quot;)[
+    (show: ?dustable)
+    (if: $inventory contains &quot;duster&quot;)[
+      (show: ?dust_basement)
+	]
+  ]
 }</tw-passagedata><tw-passagedata pid="13" name="The Broom Closet" tags="" position="367,1239" size="100,100">The broom closet is hardly an interesting place, barely lit by a flickering lightbulb dangling on a cord... There are shelves on the wall opposite to the door, where cleaning tools are supposed to be.
 
-|duster&gt;[There is a duster on the top shelf.] |bucket&gt;[There is a bucket on the lower shelf.] |broom&gt;[There is a broom resting against the wall.]
+|duster&gt;[There is a duster on the top shelf.] |bucket&gt;[There is a bucket on the lower shelf.] |broom&gt;[There is a broom resting against the wall.] |cookie_mix&gt;[Apparently, someone forgot a box of cookie mixture in here.]
+
 {
 (if: visits &lt; 2)[
 [[Leave-&gt;The Kitchen]]
@@ -231,6 +420,15 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 		(display: &quot;Sidebar&quot;)
 	]
 ]
+
+(unless: $inventory contains &quot;cookie_mix&quot;)[
+	(click: ?cookie_mix)[
+		(set: $inventory to it + (a: &quot;cookie mix&quot;))
+		(set: $action_history to it + (a: &quot;You picked up the box of cookie mixture&quot;))
+		(display: &quot;Sidebar&quot;)
+	]
+]
+
 }</tw-passagedata><tw-passagedata pid="14" name="Out of the Closet" tags="ending" position="367,1389" size="100,100">The door of the closet is somewhat stuck...
 
 (link: &quot;Push.&quot;)[====
@@ -245,7 +443,7 @@ You&#39;re ready to ask who the man is, but the long beard and the robe kind of 
 
 Looking down, you see your own body and the clothes you are wearing... and you&#39;re absolutely stunned.
 
-&lt;img src=&quot;img/house/sissy.jpg&quot;&gt;&lt;/img&gt;
+($wifeImage: &quot;sissy&quot;)
 
 You open your mouth to comment with confusion at your sudden change of clothes, and maybe apologize for your intrusion, but the man touches a finger to your lips, shushing you.
 
@@ -260,8 +458,8 @@ Your head is filled with thoughts you didn&#39;t want to think, but you were hel
 	(if: $inventory contains &quot;duster&quot;)[&lt;li&gt;Duster&lt;/li&gt;]
 	(if: $inventory contains &quot;broom&quot;)[&lt;li&gt;Broom&lt;/li&gt;]
 	(if: $inventory contains &quot;firewood&quot;)[&lt;li&gt;Firewood&lt;/li&gt;]
-	(if: $inventory contains &quot;chicken&quot;)[&lt;li&gt;Chicken&lt;/li&gt;]
 	(if: $inventory contains &quot;potatoes&quot;)[&lt;li&gt;Potatoes&lt;/li&gt;]
+	(if: $inventory contains &quot;recipe book&quot;)[&lt;li&gt;Recibe Book&lt;/li&gt;]
 	(if: $inventory contains &quot;cookie mix&quot;)[&lt;li&gt;Cookie Mix&lt;/li&gt;]
 }
 &lt;/ul&gt;</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="footer" position="567,191" size="100,100">(replace: ?sidebar)[
@@ -326,7 +524,7 @@ With the fireplace crackling and the fur coat over your body, you are sure you c
   	[[...Wake up!-&gt;In The Crib]]
   ]
   (else-if: $tasks_done is $total_tasks_todo)[
-    (if: $cooked_place is &quot;chicken&quot;)[
+    (if: $cooked_plate is &quot;chicken&quot;)[
 	  [[...Wake up!-&gt;The Good Wife]]
 	]
 	(else:)[
@@ -439,7 +637,7 @@ You gladly get up and pick another bonbon before skipping upstairs, taking the s
 &lt;!-- The task-performing link --&gt;
 |task_tag)[{
   (link: &quot;Do Task&quot;)[
-	(set: $tasks_todo to $it - (a:&quot;task description&quot;))
+	(set: $tasks_todo to it - (a:&quot;task description&quot;))
 	(set: $action_history to it + (a: &quot;You have performed the task&quot;))
 	(display: &quot;Sidebar&quot;)
 	&lt;!-- Transform the page further here, such as showing new links that were previously invisible --&gt;
@@ -450,6 +648,7 @@ You gladly get up and pick another bonbon before skipping upstairs, taking the s
 &lt;!-- Showing the task-performing link --&gt;
 {
   (if: $tasks_todo contains &quot;task description&quot;)[
+    &lt;!-- Transform the page, e.g. showing tags that represent the work to be done --&gt;
     (if: $inventory contains &quot;required item&quot;)[
       (show: ?task_tag)
 	]
@@ -501,7 +700,11 @@ Merry Holidays,
 
 You sit on the sofa wondering what to think of all this... what is there to think, really? As the chocolate washes down the cookies and your objetcions to this whole scenario, you feel like there&#39;s nothing else to do than to rest and wait to be taken into a long life in service of the joy of children and adults around the world...
 
-&lt;em&gt;Congratulations! You&#39;ve escaped the fate of submitting your will to the master of the house, but instead found a great new master to submit to! Ho ho ho, darling!&lt;/em&gt;</tw-passagedata></tw-storydata>
+&lt;em&gt;Congratulations! You&#39;ve escaped the fate of submitting your will to the master of the house, but instead found a great new master to submit to! Ho ho ho, darling!&lt;/em&gt;</tw-passagedata><tw-passagedata pid="29" name="Macros" tags="header" position="241,304" size="100,100">{
+  (set: $wifeImage to (macro: string-type _wifeId, [
+  	(output:)[(print: &quot;&lt;img src=\&quot;img/wife/&quot; + _wifeId + &quot;.jpg\&quot;&gt;&lt;/img&gt;&quot;)]
+  ]))
+}</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">"use strict";var _slicedToArray=function(){return function(e,t){if(Array.isArray(e))return e;if(Symbol.iterator in Object(e))return function(e,t){var n=[],r=!0,i=!1,a=void 0;try{for(var o,s=e[Symbol.iterator]();!(r=(o=s.next()).done)&&(n.push(o.value),!t||n.length!==t);r=!0);}catch(e){i=!0,a=e}finally{try{!r&&s.return&&s.return()}finally{if(i)throw a}}return n}(e,t);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}!function(){
 /**
  * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
