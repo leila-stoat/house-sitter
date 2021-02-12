@@ -311,14 +311,14 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 [[Go downstairs-&gt;The Living Room]]
 
 {
-  (if: $tasks_todo contains &quot;sweep living room&quot;)[
+  (if: $tasks_todo contains &quot;sweep bedroom&quot;)[
     (show: ?sweepable)
     (if: $inventory contains &quot;broom&quot;)[
       (show: ?sweep_bedroom)
 	]
   ]
   
-  (if: $tasks_todo contains &quot;dust living room&quot;)[
+  (if: $tasks_todo contains &quot;dust bedroom&quot;)[
     (show: ?dustable)
     (if: $inventory contains &quot;duster&quot;)[
       (show: ?dust_bedroom)
