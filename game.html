@@ -414,7 +414,8 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 |duster&gt;[There is a duster on the top shelf.] |bucket&gt;[There is a bucket on the lower shelf.] |broom&gt;[There is a broom resting against the wall.] |cookie_mix&gt;[Apparently, someone forgot a box of cookie mixture in here.]
 
 {
-(if: visits &lt; 3)[
+(set: $closetEntries to it + 1)
+(if: $closetEntries &lt; 3)[
 [[Leave-&gt;The Kitchen]]
 ]
 (else:)[
@@ -513,6 +514,8 @@ Your head is filled with thoughts you didn&#39;t want to think, but you were hel
   &quot;light fireplace&quot;,
   &quot;cook&quot;) )
   (set: $total_tasks_todo to $tasks_todo&#39;s length)
+  
+  (set: $closetEntries to 0)
 }</tw-passagedata><tw-passagedata pid="18" name="Bath" tags="" position="698,1230" size="100,100">The tub quickly fills with clear water, which aqcuires a rosy and bubbly tone... odd, did you put some product in the water? Not that you remember...
 
 It looks so nice and inviting, and HOT, too... the steaming water beckons you in. You feel like you could just get naked, get in and
