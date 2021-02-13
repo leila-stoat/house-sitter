@@ -12,6 +12,8 @@
 <tw-storydata name="The House Sitter" startnode="1" creator="Twine" creator-version="2.3.10" ifid="BD9CB3E2-0CA8-41CA-B517-A1E9B787334E" zoom="1" format="Harlowe" format-version="3.2.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">tw-story {
   background-color: #fce;
   color: #201;
+  height: 100%;
+  overflow: visible scroll;
 }
 
 tw-passage {
@@ -19,11 +21,13 @@ tw-passage {
   width: 100%;
   font-family: sans-serif;
   font-size: 14pt;
+  height: 100%;
 }
 
 tw-sidebar {
   left: -15em;
   width: 14em;
+  height: 100%;
   font-size: 12pt;
   line-height: 1em;
   border-right: thin #00000020 dashed;
@@ -86,7 +90,7 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
 	(set: $action_history to it + (a: &quot;You have swept the porch&quot;))
 	(display: &quot;Sidebar&quot;)
 	(replace: ?sweep)[]
-	(replace: ?sweepable)
+	(replace: ?sweepable)[]
   ]
 }]
 
@@ -307,14 +311,14 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 [[Go downstairs-&gt;The Living Room]]
 
 {
-  (if: $tasks_todo contains &quot;sweep living room&quot;)[
+  (if: $tasks_todo contains &quot;sweep bedroom&quot;)[
     (show: ?sweepable)
     (if: $inventory contains &quot;broom&quot;)[
       (show: ?sweep_bedroom)
 	]
   ]
   
-  (if: $tasks_todo contains &quot;dust living room&quot;)[
+  (if: $tasks_todo contains &quot;dust bedroom&quot;)[
     (show: ?dustable)
     (if: $inventory contains &quot;duster&quot;)[
       (show: ?dust_bedroom)
@@ -410,7 +414,8 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 |duster&gt;[There is a duster on the top shelf.] |bucket&gt;[There is a bucket on the lower shelf.] |broom&gt;[There is a broom resting against the wall.] |cookie_mix&gt;[Apparently, someone forgot a box of cookie mixture in here.]
 
 {
-(if: visits &lt; 3)[
+(set: $closetEntries to it + 1)
+(if: $closetEntries &lt; 3)[
 [[Leave-&gt;The Kitchen]]
 ]
 (else:)[
@@ -509,6 +514,8 @@ Your head is filled with thoughts you didn&#39;t want to think, but you were hel
   &quot;light fireplace&quot;,
   &quot;cook&quot;) )
   (set: $total_tasks_todo to $tasks_todo&#39;s length)
+  
+  (set: $closetEntries to 0)
 }</tw-passagedata><tw-passagedata pid="18" name="Bath" tags="" position="698,1230" size="100,100">The tub quickly fills with clear water, which aqcuires a rosy and bubbly tone... odd, did you put some product in the water? Not that you remember...
 
 It looks so nice and inviting, and HOT, too... the steaming water beckons you in. You feel like you could just get naked, get in and
@@ -624,7 +631,7 @@ You are taken by the eerie realization that maybe your footwear is not the only 
 
 As you give your own body a wider look, you realize the clothes you are wearing now are the black and white frilled uniform that certainly characterizes a maid, and which just perfectly contrast your tan skin...
 
-&lt;img src=&quot;img/house/maid.jpg&quot;&gt;&lt;/img&gt;
+($wifeImage: &quot;maid&quot;)
 
 The door opens and a bearded men in robes shows up, smiling as he sees you. Before you even speak up, he interrupts, guessing that what&#39;s coming up is an apology.
 
