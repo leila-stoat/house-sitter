@@ -92,11 +92,11 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
 	(replace: ?sweep)[]
 	(replace: ?sweepable)[]
   ]
-}]
+}
 
-|note_read)[[[Enter the cabin-&gt;The Hall]]
+]|note_read)[[[Enter the cabin-&gt;The Hall]]
 
-[[Attempt to leave-&gt;The Fog]]]
+][[Attempt to leave-&gt;The Fog]]
 {
 (if: (history:) contains &quot;The Note&quot;)[(show: ?note_read)]
 (if: last of (history:) is &quot;The Cabin&quot;)[(show: ?from_outside)]
@@ -107,12 +107,12 @@ Unable to go out to fetch firewood or supplies, you knew you would not last for 
     (show: ?sweep)
   ]
 ]
-}</tw-passagedata><tw-passagedata pid="5" name="The Note" tags="" position="262,789" size="100,100">&quot;To my housekeeper:
+}</tw-passagedata><tw-passagedata pid="5" name="The Note" tags="" position="262,789" size="100,100">(background: yellow + white)+(text-style: &quot;shadow&quot;)+(text-indent: 8)[(box:&quot;=XXXXXXXXX=&quot;)[&quot;To my housekeeper:
 
 As you are reading this note, I am not home at the moment of your arrival. My apologies. Make yourself at home and take care of everything in my absence, and you shall be free to rest from the cold. Otherwise, no misdeed shall be unpunished...
 
 Be well,
--- The Great Grunfledorf&quot;
+-- The Great Grunfledorf&quot;]]
 
 [[...Okay-&gt;The Porch]]</tw-passagedata><tw-passagedata pid="6" name="The Hall" tags="" position="413,789" size="100,100">The entrance hall is small, but so much warmer than the outside. |coat&gt;[There are furry coats hanging from hooks attached to the door].
 
@@ -127,21 +127,20 @@ Be well,
 		(display: &quot;Sidebar&quot;)
 	]
 ]
-}</tw-passagedata><tw-passagedata pid="7" name="The Fog" tags="" position="629,690" size="100,100">(set: _fogLoopCount to (count: (history:)&#39;s 3rdlasttolast, (passage:)&#39;s name))
-As you venture further into the wilderness, the cold is biting and the fog is thick. You can&#39;t see anything even a measly foot ahead of your nose.(if: not ($inventory contains &quot;coat&quot;))[ There&#39;s no way you can press on with just your current garments.]
+}</tw-passagedata><tw-passagedata pid="7" name="The Fog" tags="" position="629,690" size="100,100">{
+(set: _fogLoopCount to (count: (history:)&#39;s 3rdlasttolast, (passage:)&#39;s name))
+}As you venture further into the wilderness, the cold is biting and the fog is thick. You can&#39;t see anything even a measly foot ahead of your nose.(if: not ($inventory contains &quot;coat&quot;))[ There&#39;s no way you can press on with just your current garments.]
 (if: _fogLoopCount &gt; 0)[
-The weather turns bitter as snow starts to fall... your coat can keep you warm, but you still can&#39;t see much ahead, stumbling blindly through the snow.]
-(if: _fogLoopCount &gt; 1)[
-You&#39;re not quite sure if the sky is darkening due to the late hour, or whether that is the snow intensifying... one thing is certain, though, this is turning more and more dangerous by the minute.]
-(if: _fogLoopCount &gt; 2)[
+The weather turns bitter as snow starts to fall... your coat can keep you warm, but you still can&#39;t see much ahead, stumbling blindly through the snow.
+](if: _fogLoopCount &gt; 1)[
+You&#39;re not quite sure if the sky is darkening due to the late hour, or whether that is the snow intensifying... one thing is certain, though, this is turning more and more dangerous by the minute.
+](if: _fogLoopCount &gt; 2)[
 As the cold bites your cheeks and hope seems lost, you spot in the distance... lights! Small, but surely there, warm soft lights that seem to belong to a warm and well-lit house, somewhere you can find safe lodging, at last!]
-
 (if: _fogLoopCount &lt; 3)[
   [[Return to the Cabin-&gt;The Porch]]
 
   (if: $inventory contains &quot;coat&quot;)[[[Press On-&gt;The Fog]]]
-]
-(else:)[
+](else:)[
   [[Go towards the lights-&gt;The Elf Maiden]]
 ]</tw-passagedata><tw-passagedata pid="8" name="The Living Room" tags="" position="412,939" size="100,100">The living room is large and furnished|sweepable)[, although the floor is covered with a thin layer of mud and dirt]. A fireplace is embedded on the wall, opposite to a large sofa|dustable)[, covered in dust]. |fire)[The warm light of the fire fills the room.]
 
@@ -153,9 +152,9 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 	(replace: ?sweepable)[]
 	(replace: ?sweep_living)[]
   ]
-}]
+}
 
-|dust_living)[{
+]|dust_living)[{
   (link: &quot;Dust Living Room&quot;)[
 	(set: $tasks_todo to it - (a:&quot;dust living room&quot;))
 	(set: $action_history to it + (a: &quot;You have dusted the living room&quot;))
@@ -163,9 +162,9 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 	(replace: ?dustable)[]
 	(replace: ?dust_living)[]
   ]
-}]
+}
 
-|light_fire)[{
+]|light_fire)[{
   (link: &quot;Light the fireplace&quot;)[
 	(set: $tasks_todo to it - (a: &quot;light fireplace&quot;))
 	(set: $action_history to it + (a: &quot;You have lit the fireplace&quot;))
@@ -176,11 +175,11 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 	(show: ?fire)
 	(replace: ?light_fire)[]
   ]
-}]
+}
 
-|sofa)[[[Sleep on the sofa-&gt;Sleep (Living Room)]]]
+]|sofa)[[[Sleep on the sofa-&gt;Sleep (Living Room)]]
 
-[[Go to the kitchen-&gt;The Kitchen]]
+][[Go to the kitchen-&gt;The Kitchen]]
 
 [[Go to the hall-&gt;The Hall]]
 
@@ -214,9 +213,9 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
   ]
 }</tw-passagedata><tw-passagedata pid="9" name="The Kitchen" tags="" position="325,1090" size="100,100">The kitchen is wide and long, the floor covered in tiles and the walls lined with cupboards and utilities. A (link-reveal: &quot;fridge&quot;)[(show: ?fridge)] stands tall against the farthest corner.|sweepable)[ The tiled floor is covered in a layer of dust and grime.](if: $cooked_plate is &quot;cookies&quot;)[ There is a plate of warm cookies on the table.](if: $cooked_plate is &quot;chicken&quot;)[ There is a golden roasted chicken sitting delicious on the table.]
 
-|fridge)[(if: $cooked_plate is &quot;chicken&quot;)[The fridge is now empty.](else:)[In the fridge, a whole chicken sits plucked and clean, ready for the cooking. (if: $inventory contains &quot;recipe book&quot;)[According to the recipe book, it&#39;d really go well with some potatoes...]]]
+|fridge)[(if: $cooked_plate is &quot;chicken&quot;)[The fridge is now empty.](else:)[In the fridge, a whole chicken sits plucked and clean, ready for the cooking. (if: $inventory contains &quot;recipe book&quot;)[According to the recipe book, it&#39;d really go well with some potatoes...]]
 
-|sweep_kitchen)[{
+]|sweep_kitchen)[{
   (link: &quot;Sweep the Floor&quot;)[
 	(set: $tasks_todo to it - (a:&quot;sweep kitchen&quot;))
 	(set: $action_history to it + (a: &quot;You have sweeped the kitchen&quot;))
@@ -224,9 +223,9 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 	(replace: ?sweepable)[]
 	(replace: ?sweep_kitchen)[]
   ]
-}]
+}
 
-|cook_cookies)[{
+]|cook_cookies)[{
   (link: &quot;Bake Some Cookies&quot;)[
 	(set: $tasks_todo to it - (a:&quot;cook&quot;))
 	(set: $action_history to it + (a: &quot;You have baked some cookies&quot;))
@@ -235,9 +234,9 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 	(replace: ?cook_cookies)[]
 	(replace: ?cook_chicken)[]
   ]
-}]
+}
 
-|cook_chicken)[{
+]|cook_chicken)[{
   (link: &quot;Roast The Chicken&quot;)[
 	(set: $tasks_todo to it - (a:&quot;cook&quot;))
 	(set: $action_history to it + (a: &quot;You have roasted the chicken&quot;))
@@ -246,9 +245,9 @@ As the cold bites your cheeks and hope seems lost, you spot in the distance... l
 	(replace: ?cook_cookies)[]
 	(replace: ?cook_chicken)[]
   ]
-}]
+}
 
-[[Go to the living room-&gt;The Living Room]]
+][[Go to the living room-&gt;The Living Room]]
 
 [[Go downstairs-&gt;The Basement]]
 
@@ -282,9 +281,9 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 	(replace: ?sweepable)[]
 	(replace: ?sweep_bedroom)[]
   ]
-}]
+}
 
-|dust_bedroom)[{
+]|dust_bedroom)[{
   (link: &quot;Dust Bedroom&quot;)[
 	(set: $tasks_todo to it - (a:&quot;dust bedroom&quot;))
 	(set: $action_history to it + (a: &quot;You have dusted the bedroom&quot;))
@@ -292,9 +291,9 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 	(replace: ?dustable)[]
 	(replace: ?dust_bedroom)[]
   ]
-}]
+}
 
-|pick_book)[{
+]|pick_book)[{
   (link: &quot;Take the Book&quot;)[
 	(set: $inventory to it + (a:&quot;recipe book&quot;))
 	(set: $action_history to it + (a: &quot;You have picked up the recipe book&quot;))
@@ -302,9 +301,9 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 	(replace: ?recipe_book)[]
 	(replace: ?pick_book)[]
   ]
-}]
+}
 
-[[Sleep on the bed-&gt;Sleep (Bedroom)]]
+][[Sleep on the bed-&gt;Sleep (Bedroom)]]
 
 [[Go in the bathroom-&gt;The Bathroom]]
 
@@ -332,8 +331,6 @@ At the wall opposite to the entrance door there is another door, likely a bathro
   ]
 }</tw-passagedata><tw-passagedata pid="11" name="The Bathroom" tags="" position="487,1239" size="100,100">The bathroom is surprisingly luxurious for a cabin in the middle of the woods, entirely decorated with tiles, furry carpets by the bathtub and the toilet, and a vanity with a large mirror. |grime)[The bottom of the bathtub is coated in a noticeable layer of grime]
 
-[[Go back out.-&gt;The Bedroom]]
-
 |clean_tub)[{
   (link: &quot;Clean the Bathtub&quot;)[
 	(set: $tasks_todo to it - (a:&quot;clean bathtub&quot;))
@@ -343,9 +340,11 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 	(replace: ?clean_tub)[]
 	(replace: ?grime)[]
   ]
-}]
+}
 
-|bath)[[[Fill the Bathtub-&gt;Bath]]]
+]|bath)[[[Fill the Bathtub-&gt;Bath]]
+
+][[Go back out.-&gt;The Bedroom]]
 
 {
   (if: $tasks_todo contains &quot;clean bathtub&quot;)[
@@ -366,9 +365,9 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 	(replace: ?sweepable)[]
 	(replace: ?sweep_basement)[]
   ]
-}]
+}
 
-|dust_basement)[{
+]|dust_basement)[{
   (link: &quot;Dust Basement&quot;)[
 	(set: $tasks_todo to it - (a:&quot;dust basement&quot;))
 	(set: $action_history to it + (a: &quot;You have dusted the basement&quot;))
@@ -376,9 +375,9 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 	(replace: ?dustable)[]
 	(replace: ?dust_basement)[]
   ]
-}]
+}
 
-[[Go back upstairs-&gt;The Kitchen]]
+][[Go back upstairs-&gt;The Kitchen]]
 {
   (unless: $inventory contains &quot;firewood&quot;)[
 	  (click: ?firewood)[
@@ -409,7 +408,7 @@ At the wall opposite to the entrance door there is another door, likely a bathro
       (show: ?dust_basement)
 	]
   ]
-}</tw-passagedata><tw-passagedata pid="13" name="The Broom Closet" tags="" position="367,1239" size="100,100">The broom closet is hardly an interesting place, barely lit by a flickering lightbulb dangling on a cord... There are shelves on the wall opposite to the door, where cleaning tools are supposed to be.
+}</tw-passagedata><tw-passagedata pid="13" name="The Broom Closet" tags="" position="368,1239" size="100,100">The broom closet is hardly an interesting place, barely lit by a flickering lightbulb dangling on a cord... There are shelves on the wall opposite to the door, where cleaning tools are supposed to be.
 
 |duster&gt;[There is a duster on the top shelf.] |bucket&gt;[There is a bucket on the lower shelf.] |broom&gt;[There is a broom resting against the wall.] |cookie_mix&gt;[Apparently, someone forgot a box of cookie mixture in here.]
 
@@ -490,7 +489,7 @@ Your head is filled with thoughts you didn&#39;t want to think, but you were hel
 	(if: $inventory contains &quot;recipe book&quot;)[&lt;li&gt;Recibe Book&lt;/li&gt;]
 	(if: $inventory contains &quot;cookie mix&quot;)[&lt;li&gt;Cookie Mix&lt;/li&gt;]
 }
-&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="footer" position="567,191" size="100,100">(replace: ?sidebar)[
+&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,191" size="100,100">(replace: ?sidebar)[
 {
   (if: $endings&#39;s length &gt; 0)[
 	(display: &quot;Endings Gallery&quot;)
