@@ -127,22 +127,39 @@ Be well,
 		(display: &quot;Sidebar&quot;)
 	]
 ]
-}</tw-passagedata><tw-passagedata pid="7" name="The Fog" tags="" position="629,690" size="100,100">{
-(set: _fogLoopCount to (count: (history:)&#39;s 3rdlasttolast, (passage:)&#39;s name))
-}As you venture further into the wilderness, the cold is biting and the fog is thick. You can&#39;t see anything even a measly foot ahead of your nose.(if: not ($inventory contains &quot;coat&quot;))[ There&#39;s no way you can press on with just your current garments.]
-(if: _fogLoopCount &gt; 0)[
+}</tw-passagedata><tw-passagedata pid="7" name="The Fog" tags="" position="629,690" size="100,100">As you venture further into the wilderness, the cold is biting and the fog is thick. You can&#39;t see anything even a measly foot ahead of your nose.(if: not ($inventory contains &quot;coat&quot;))[ There&#39;s no way you can press on with just your current garments.]
+|fogLevel1)[
 The weather turns bitter as snow starts to fall... your coat can keep you warm, but you still can&#39;t see much ahead, stumbling blindly through the snow.
-](if: _fogLoopCount &gt; 1)[
+]|fogLevel2)[
 You&#39;re not quite sure if the sky is darkening due to the late hour, or whether that is the snow intensifying... one thing is certain, though, this is turning more and more dangerous by the minute.
-](if: _fogLoopCount &gt; 2)[
-As the cold bites your cheeks and hope seems lost, you spot in the distance... lights! Small, but surely there, warm soft lights that seem to belong to a warm and well-lit house, somewhere you can find safe lodging, at last!]
-(if: _fogLoopCount &lt; 3)[
-  [[Return to the Cabin-&gt;The Porch]]
+]|fogLevel3)[
+As the cold bites your cheeks and hope seems lost, you spot in the distance... lights! Small, but surely there, warm soft lights that seem to belong to a warm and well-lit house, somewhere you can find safe lodging, at last!
+]|return)[[[Return to the Cabin-&gt;The Porch]]
 
-  (if: $inventory contains &quot;coat&quot;)[[[Press On-&gt;The Fog]]]
+]|continue)[[[Press On-&gt;The Fog]]]
+
+{
+(if: (history:)&#39;s last is (passage:)&#39;s name)[
+  (set: $fogLoopCount to it + 1)
+]
+(else:)[
+  (set: $fogLoopCount to 0)
+]
+
+(for: each _fogLevel, ...(range: 1,3))[
+  (if: _fogLevel &lt;= $fogLoopCount)[
+    (show: (hooks-named: (str: &quot;fogLevel&quot;, _fogLevel)))
+  ]
+]
+
+(if: $inventory contains &quot;coat&quot;)[(show: ?continue)]
+
+(if: $fogLoopCount &gt;= 3)[
+   (replace: ?continue)[[[Go towards the lights-&gt;The Elf Maiden]]]
 ](else:)[
-  [[Go towards the lights-&gt;The Elf Maiden]]
-]</tw-passagedata><tw-passagedata pid="8" name="The Living Room" tags="" position="412,939" size="100,100">The living room is large and furnished|sweepable)[, although the floor is covered with a thin layer of mud and dirt]. A fireplace is embedded on the wall, opposite to a large sofa|dustable)[, covered in dust]. |fire)[The warm light of the fire fills the room.]
+   (show: ?return)
+]
+}</tw-passagedata><tw-passagedata pid="8" name="The Living Room" tags="" position="412,939" size="100,100">The living room is large and furnished|sweepable)[, although the floor is covered with a thin layer of mud and dirt]. A fireplace is embedded on the wall, opposite to a large sofa|dustable)[, covered in dust]. |fire)[The warm light of the fire fills the room.]
 
 |sweep_living)[{
   (link: &quot;Sweep Living Room&quot;)[
