@@ -497,31 +497,27 @@ You open your mouth to comment with confusion at your sudden change of clothes, 
 
 Your head is filled with thoughts you didn&#39;t want to think, but you were helpless against them. You just followed the man upstairs to the bedroom, and hoped that the carpet was not going to feel too rash against your dainty sissy knees...
 
-&lt;strong&gt;Congratulations! You&#39;ve succcessfully came out of the broom closet and bloomed into a lovely sissy, submitting yourself to the will of the master of the house!&lt;/strong&gt;</tw-passagedata><tw-passagedata pid="15" name="Inventory" tags="" position="717,194" size="100,100">&lt;h2&gt;Inventory&lt;/h2&gt;
-&lt;ul id=&quot;inventory&quot;&gt;
-{
-	(if: $inventory contains &quot;coat&quot;)[&lt;li&gt;Fur Coat&lt;/li&gt;]
-	(if: $inventory contains &quot;bucket&quot;)[&lt;li&gt;Bucket&lt;/li&gt;]
-	(if: $inventory contains &quot;duster&quot;)[&lt;li&gt;Duster&lt;/li&gt;]
-	(if: $inventory contains &quot;broom&quot;)[&lt;li&gt;Broom&lt;/li&gt;]
-	(if: $inventory contains &quot;firewood&quot;)[&lt;li&gt;Firewood&lt;/li&gt;]
-	(if: $inventory contains &quot;potatoes&quot;)[&lt;li&gt;Potatoes&lt;/li&gt;]
-	(if: $inventory contains &quot;recipe book&quot;)[&lt;li&gt;Recibe Book&lt;/li&gt;]
-	(if: $inventory contains &quot;cookie mix&quot;)[&lt;li&gt;Cookie Mix&lt;/li&gt;]
-}
-&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,191" size="100,100">(replace: ?sidebar)[
-{
-  (if: $endings&#39;s length &gt; 0)[
-	(display: &quot;Endings Gallery&quot;)
-  ]
-}
-
+&lt;strong&gt;Congratulations! You&#39;ve succcessfully came out of the broom closet and bloomed into a lovely sissy, submitting yourself to the will of the master of the house!&lt;/strong&gt;</tw-passagedata><tw-passagedata pid="15" name="Inventory" tags="" position="717,194" size="100,100">{
+	(set: _inventoryIndex to (dm:
+		&quot;coat&quot;, &quot;Fur Coat&quot;,
+		&quot;bucket&quot;, &quot;Bucket&quot;,
+		&quot;duster&quot;, &quot;Duster&quot;,
+		&quot;broom&quot;, &quot;Broom&quot;,
+		&quot;firewood&quot;, &quot;Firewood&quot;,
+		&quot;potatoes&quot;, &quot;Potatoes&quot;,
+		&quot;recipe book&quot;, &quot;Recipe Book&quot;,
+		&quot;cookie mix&quot;, &quot;Cookie Mix&quot;))
+}&lt;h2&gt;Inventory&lt;/h2&gt;
+(box: &quot;X&quot;, 8)[&lt;ul id=&quot;inventory&quot;&gt;{
+	(for: each _itemEntry, ...(dataentries: _inventoryIndex))[
+	    (if: $inventory contains _itemEntry&#39;s name)[
+		&lt;li&gt;(print: _itemEntry&#39;s value)&lt;/li&gt;
+	]]
+}&lt;/ul&gt;]</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,189" size="100,100">(replace: ?sidebar)[
+(if: $endings&#39;s length &gt; 0)[(display: &quot;Endings Gallery&quot;)
+]
 (display: &quot;Inventory&quot;)
-
-&lt;h2&gt;Action History&lt;/h2&gt;
-&lt;ul id=&quot;history&quot;&gt;
-(for: each _line, ...$action_history)[&lt;li&gt;_line&lt;/li&gt;]
-&lt;/ul&gt;
+(if: $action_history&#39;s length &gt; 0)[(display: &quot;History&quot;)]
 ]</tw-passagedata><tw-passagedata pid="17" name="Round Initialization" tags="" position="243,187" size="100,100">{
   (set: $inventory to (a:))
   (set: $action_history to (a:))
@@ -761,14 +757,16 @@ You sit on the sofa wondering what to think of all this... what is there to thin
 	]
   	(output:)[(print: &quot;&lt;img src=\&quot;img/house/&quot; + _wifeId + &quot;.jpg\&quot;&gt;&lt;/img&gt;&quot;)]
   ]))
-}</tw-passagedata><tw-passagedata pid="30" name="Try Again" tags="footer" position="551,31" size="100,100">(if: (passage:)&#39;s tags contains &quot;ending&quot; and $endings&#39;s length &gt; 0)[&lt;hr/&gt;
+}</tw-passagedata><tw-passagedata pid="30" name="Try Again" tags="footer" position="561,36" size="100,100">(if: (passage:)&#39;s tags contains &quot;ending&quot; and $endings&#39;s length &gt; 0)[&lt;hr/&gt;
 &lt;em&gt;[[Try Again?-&gt;New Game+]]&lt;/em&gt;
-]</tw-passagedata><tw-passagedata pid="31" name="New Game+" tags="" position="410,33" size="100,100">(display: &quot;Round Initialization&quot;)
+
+&lt;em&gt;(link: &quot;Care for a hint?&quot;)[(display: &quot;Hint&quot;)]&lt;em&gt;
+]</tw-passagedata><tw-passagedata pid="31" name="New Game+" tags="" position="419,37" size="100,100">(display: &quot;Round Initialization&quot;)
 (display: &quot;Intro&quot;)</tw-passagedata><tw-passagedata pid="32" name="Game Initialization" tags="startup" position="117,187" size="100,100">{
   (set: $endings to (a:))
 }
 
-(display: &quot;Round Initialization&quot;)</tw-passagedata><tw-passagedata pid="33" name="Endings Gallery" tags="" position="719,305" size="100,100">{
+(display: &quot;Round Initialization&quot;)</tw-passagedata><tw-passagedata pid="33" name="Endings Gallery" tags="" position="718,304" size="100,100">{
   (set: _endingIndex to (dm:
 	  &quot;housewife&quot;, &quot;The Good Wife&quot;,
 	  &quot;sweet&quot;, &quot;The Sweet Wife&quot;,
@@ -778,8 +776,7 @@ You sit on the sofa wondering what to think of all this... what is there to thin
 	  &quot;sissy&quot;, &quot;Out of the Closet&quot;,
 	  &quot;fur&quot;, &quot;The Cold Wife&quot;,
 	  &quot;elf&quot;, &quot;The Elf Maiden&quot;))
-}
-&lt;h2&gt;Endings&lt;/h2&gt;
+}&lt;h2&gt;Endings&lt;/h2&gt;
 &lt;ul id=&quot;endings&quot;&gt;{
 (for: each _ending, ...(dataentries: _endingIndex))[
   &lt;li&gt;
@@ -790,7 +787,28 @@ You sit on the sofa wondering what to think of all this... what is there to thin
   ]
   &lt;/li&gt;
 ]
-&lt;/ul&gt;}</tw-passagedata></tw-storydata>
+}&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="34" name="Hint" tags="" position="702,33" size="100,100">{
+(cond:
+	$endings&#39;s last is &quot;elf&quot;, &quot;Perhaps you should go in and warm yourself. I&#39;m sure it can&#39;t get worse than it got already...&quot;,
+	$endings&#39;s last is &quot;sissy&quot;, &quot;Wandering around can be dangerous, so try to plan carefully and pick everything you need at once instead of going in and out willy-nilly...&quot;,
+	$endings&#39;s last is &quot;bathtub&quot;, &quot;Now you know hot water is like a narcotic for you, so maybe you should steer clear of the tub...&quot;,
+	$endings&#39;s last is &quot;fur&quot;, &quot;The sofa really isn&#39;t the best place to sleep, is it? I&#39;m sure there&#39;s somewhere more appropriate where you could rest yourself...&quot;,
+	&quot;maid&quot; is in $endings and &quot;housewife&quot; is not in $endings and &quot;sweet&quot; is not in $endings, (print: &quot;You worked very hard, but it seems you have missed some work, dear... &quot; + 
+	&quot;I wish I knew what it could be, though. You&#39;re honestly on your own here!&quot;),
+	&quot;housewife&quot; is in $endings and &quot;sweet&quot; is not in $endings, &quot;After doing all that work you still have to bake a whole meal? Maybe there&#39;s something else that can be eaten but is a lot easier to bake...&quot;,
+	&quot;sweet&quot; is in $endings and &quot;housewife&quot; is not in $endings, (print: &quot;You did your work well, but maybe cookies for dinner was a bit of cheating, wasn&#39;t it? &quot; + (cond:
+		$inventory contains &quot;recipe book&quot;,  &quot;With that fancy recipe book you can certainly cook something better...&quot;,
+		$inventory does not contain &quot;recipe book&quot;, &quot;Maybe you can cook something better if you find a suitable recipe...&quot;)),
+	&quot;maid&quot; is in $endings and &quot;sweet&quot; is in $endings and &quot;housewife&quot; is in $endings and &quot;baby&quot; is not in $endings, &quot;Did you ever wonder if you can go to sleep without doing any work? I&#39;m sure you deserve a rest right after walking in from that bitter cold...&quot;,
+	&quot;fur&quot; is not in $endings, &quot;If you light up the fireplace, the living room might be almost cozy enough to sleep in, too...&quot;,
+	&quot;bathtub&quot; is not in $endings, &quot;A hot bath may be almost as refreshing as a good night of sleep. Maybe you should try it...&quot;,
+	&quot;sissy&quot; is not in $endings, &quot;Wandering around a stranger&#39;s house can be fun, but watch out! You never know if you&#39;ll come out of a room the same way you came in...&quot;,
+	&quot;elf&quot; is not in $endings, &quot;Maybe it&#39;s time to blow this popsicle stand. The only problem is outside is too cold. But if you took care of that...&quot;,
+	&quot;I honestly don&#39;t know how I can help you, hon... maybe you should look into the strategy guide?&quot;)
+}</tw-passagedata><tw-passagedata pid="35" name="History" tags="" position="829,195" size="100,100">&lt;h2&gt;Action History&lt;/h2&gt;
+(box: &quot;X&quot;, 16)[&lt;ul id=&quot;history&quot;&gt;
+(for: each _line, ...$action_history)[&lt;li&gt;_line&lt;/li&gt;]
+&lt;/ul&gt;]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">"use strict";var _slicedToArray=function(){return function(e,t){if(Array.isArray(e))return e;if(Symbol.iterator in Object(e))return function(e,t){var n=[],r=!0,i=!1,a=void 0;try{for(var o,s=e[Symbol.iterator]();!(r=(o=s.next()).done)&&(n.push(o.value),!t||n.length!==t);r=!0);}catch(e){i=!0,a=e}finally{try{!r&&s.return&&s.return()}finally{if(i)throw a}}return n}(e,t);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}!function(){
 /**
  * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
