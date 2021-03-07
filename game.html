@@ -25,16 +25,20 @@ tw-passage {
   font-family: sans-serif;
   font-size: 14pt;
   height: 100%;
+  margin: 12pt 0pt;
+  padding: 0 3em;
 }
 
 tw-sidebar {
-  left: -15em;
-  width: 14em;
+  left: -16em;
+  width: 18em;
+  padding: 0em 2em;
   height: 100%;
   font-size: 12pt;
   line-height: 1em;
   border-right: thin #00000020 dashed;
   overflow: visible scroll;
+  justify-content: flex-start;
 }
 
 tw-sidebar h2 {
@@ -51,21 +55,6 @@ tw-link, tw-link.visited {
 
 tw-link:hover {
   color: #848;
-}
-
-img.sissy-on-parade {
-  display: block;
-  margin-top: 1em;
-}
-
-ul {
-  background-color: #ffffff40;
-  padding: 4pt 16pt;
-  width: 11em;
-  right: 0.5em;
-  left: 0.5em;
-  text-align: justify;
-  border-radius: 0.25em;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="ending" color="blue"></tw-tag>,<tw-tag name="template" color="gray"></tw-tag><tw-passagedata pid="1" name="Intro" tags="" position="412,189" size="100,100">A nice vacation in the snowy mountains miles away from town was all you needed and wanted, and even planned for weeks... only for a sudden blizzard to turn what would be an afternoon of skiing followed by a cozy night of fireplace roasted marshmallows into an impossibility.
 
 Unable to go out to fetch firewood or supplies, you knew you would not last for long enough. At some point, you&#39;d have to be confident enough that you could find your way back and take a hike to the nearest convenience store to get something to last until the blizzard ran itself out.
@@ -507,20 +496,13 @@ Your head is filled with thoughts you didn&#39;t want to think, but you were hel
 		&quot;potatoes&quot;, &quot;Potatoes&quot;,
 		&quot;recipe book&quot;, &quot;Recipe Book&quot;,
 		&quot;cookie mix&quot;, &quot;Cookie Mix&quot;))
-}&lt;h2&gt;Inventory&lt;/h2&gt;
-(box: &quot;X&quot;, 8)[&lt;ul id=&quot;inventory&quot;&gt;{
-    (for: each _item, ...$inventory)[
-	    &lt;li&gt;(print: _inventoryIndex&#39;s (_item))&lt;/li&gt;
-	]
-	&lt;!--(for: each _itemEntry, ...(dataentries: _inventoryIndex))[
-	    (if: $inventory contains _itemEntry&#39;s name)[
-		&lt;li&gt;(print: _itemEntry&#39;s value)&lt;/li&gt;
-	]]--&gt;
-}&lt;/ul&gt;]</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,189" size="100,100">(replace: ?sidebar)[
-(if: $endings&#39;s length &gt; 0)[(display: &quot;Endings Gallery&quot;)
-]
+}
+## Inventory
+(for: each _item, ...$inventory)[(print: _inventoryIndex&#39;s (_item))
+]</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,189" size="100,100">(replace: ?sidebar)[
+(display: &quot;Endings Gallery&quot;)
 (display: &quot;Inventory&quot;)
-(if: $action_history&#39;s length &gt; 0)[(display: &quot;History&quot;)]
+(display: &quot;History&quot;)
 ]</tw-passagedata><tw-passagedata pid="17" name="Round Initialization" tags="" position="243,187" size="100,100">{
   (set: $inventory to (a:))
   (set: $action_history to (a:))
@@ -812,18 +794,14 @@ You sit on the sofa wondering what to think of all this... what is there to thin
 	  &quot;sissy&quot;, &quot;Out of the Closet&quot;,
 	  &quot;fur&quot;, &quot;The Cold Wife&quot;,
 	  &quot;elf&quot;, &quot;The Elf Maiden&quot;))
-}&lt;h2&gt;Endings&lt;/h2&gt;
-&lt;ul id=&quot;endings&quot;&gt;{
+}
+## Endings
 (for: each _ending, ...(dataentries: _endingIndex))[
-  &lt;li&gt;
-  (if: $endings contains _ending&#39;s name)[
+{(if: $endings contains _ending&#39;s name)[
 	(link-goto: _ending&#39;s value)
   ](else:)[
     ????
-  ]
-  &lt;/li&gt;
-]
-}&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="34" name="Hint" tags="" position="703,32" size="100,100">{
+  ]}]</tw-passagedata><tw-passagedata pid="34" name="Hint" tags="" position="703,32" size="100,100">{
 ($gtagEvent: &quot;twine_hint&quot;, (dm:))
 (cond:
 	$endings&#39;s last is &quot;elf&quot;, &quot;Perhaps you should go in and warm yourself. I&#39;m sure it can&#39;t get worse than it got already...&quot;,
@@ -850,10 +828,9 @@ You sit on the sofa wondering what to think of all this... what is there to thin
 	&quot;sissy&quot; is not in $endings, &quot;Wandering around a stranger&#39;s house can be fun, but watch out! You never know if you&#39;ll come out of a room the same way you came in...&quot;,
 	&quot;elf&quot; is not in $endings, &quot;Maybe it&#39;s time to blow this popsicle stand. The only problem is outside is too cold. But if you took care of that...&quot;,
 	&quot;I honestly don&#39;t know how I can help you, hon... maybe you should look into the strategy guide?&quot;)
-}</tw-passagedata><tw-passagedata pid="35" name="History" tags="" position="829,195" size="100,100">&lt;h2&gt;Action History&lt;/h2&gt;
-(box: &quot;X&quot;, 16)[&lt;ul id=&quot;history&quot;&gt;
-(for: each _line, ...$action_history)[&lt;li&gt;_line&lt;/li&gt;]
-&lt;/ul&gt;]</tw-passagedata><tw-passagedata pid="36" name="Debug - Show GTAG calls" tags="debug-startup" position="120,309" size="100,100">&lt;script type=&quot;text/javascript&quot;&gt;
+}</tw-passagedata><tw-passagedata pid="35" name="History" tags="" position="829,195" size="100,100">## Action History
+(for: each _line, ...(reversed: $action_history))[(print: _line)
+]</tw-passagedata><tw-passagedata pid="36" name="Debug - Show GTAG calls" tags="debug-startup" position="120,309" size="100,100">&lt;script type=&quot;text/javascript&quot;&gt;
 gtag = function(op, val, data) {
     var logMsg = &quot;GTAG Operation &#39;&quot; + op + &quot;&#39;\n\n&#39;&quot; + val + &quot;&#39;&quot;
 	if (op == &quot;event&quot;) {
