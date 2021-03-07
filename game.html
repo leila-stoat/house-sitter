@@ -55,6 +55,13 @@ tw-link, tw-link.visited {
 
 tw-link:hover {
   color: #848;
+}
+
+img.ending {
+  width: 80%;
+  margin: 0 10%;
+  border: 2px solid #c080c0;
+  padding: 4px;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="ending" color="blue"></tw-tag>,<tw-tag name="template" color="gray"></tw-tag><tw-passagedata pid="1" name="Intro" tags="" position="412,189" size="100,100">A nice vacation in the snowy mountains miles away from town was all you needed and wanted, and even planned for weeks... only for a sudden blizzard to turn what would be an afternoon of skiing followed by a cozy night of fireplace roasted marshmallows into an impossibility.
 
 Unable to go out to fetch firewood or supplies, you knew you would not last for long enough. At some point, you&#39;d have to be confident enough that you could find your way back and take a hike to the nearest convenience store to get something to last until the blizzard ran itself out.
@@ -466,20 +473,16 @@ At the wall opposite to the entrance door there is another door, likely a bathro
 
 }</tw-passagedata><tw-passagedata pid="14" name="Out of the Closet" tags="ending" position="367,1388" size="100,100">The door of the closet is somewhat stuck...
 
-(link: &quot;Push.&quot;)[====
-
-You push at the door with your body, forcing it open, stumbling forward into the kitchen. You hear a raspy male voice laughing.
+(link: &quot;Push.&quot;)[====You push at the door with your body, forcing it open, stumbling forward into the kitchen. You hear a raspy male voice laughing.
 
 &quot;Had some problem coming out of the closet, there? Well, I&#39;m glad you&#39;re here, anyway.&quot;
 
 You&#39;re ready to ask who the man is, but the long beard and the robe kind of clues in he must be the fellow with the colorful name that owns the place... but you&#39;re actually distracted by the sensation that something is off since you exitted the closet...
 
-(link: &quot;Look at yourself.&quot;)[====
+(link: &quot;Look at yourself.&quot;)[====Looking down, you see your own body and the clothes you are wearing... and you&#39;re absolutely stunned.
 
-Looking down, you see your own body and the clothes you are wearing... and you&#39;re absolutely stunned.
-{
-  ($wifeImage: &quot;sissy&quot;, &quot;The Broom Closet&quot;)
-}
+($wifeImage: &quot;sissy&quot;, &quot;The Broom Closet&quot;)
+
 You open your mouth to comment with confusion at your sudden change of clothes, and maybe apologize for your intrusion, but the man touches a finger to your lips, shushing you.
 
 &quot;No need to explain anything... this is just a consequence of intruding in a magician&#39;s house! But don&#39;t worry, I&#39;m sure you can already think of ways you can compensate me for that, don&#39;t you?&quot;
@@ -499,11 +502,11 @@ Your head is filled with thoughts you didn&#39;t want to think, but you were hel
 }
 ## Inventory
 (for: each _item, ...$inventory)[(print: _inventoryIndex&#39;s (_item))
-]</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,189" size="100,100">(replace: ?sidebar)[
+]</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,189" size="100,100">(if: (passage:)&#39;s tags contains &quot;ending&quot;)[(replace: ?sidebar)[
 (display: &quot;Endings Gallery&quot;)
 (display: &quot;Inventory&quot;)
 (display: &quot;History&quot;)
-]</tw-passagedata><tw-passagedata pid="17" name="Round Initialization" tags="" position="243,187" size="100,100">{
+]]</tw-passagedata><tw-passagedata pid="17" name="Round Initialization" tags="" position="243,187" size="100,100">{
   (set: $inventory to (a:))
   (set: $action_history to (a:))
 
@@ -528,13 +531,9 @@ It looks so nice and inviting, and HOT, too... the steaming water beckons you in
 
 |bathe&gt;[[[Enter and relax-&gt;A Magic Bath]]]</tw-passagedata><tw-passagedata pid="19" name="A Magic Bath" tags="ending" position="600,1378" size="100,100">You enter the bath, feeling the relaxign properties of hot water and fancy bath bubbles almost immediately. So relaxing you could even...
 
-(link: &quot;Fall asleep.&quot;)[====
+(link: &quot;Fall asleep.&quot;)[====You wake up still in the bath, hearing sounds of movement coming from the outside. Oh, shit, you fell asleep for how long in this bath? And now someone was coming in and about to find you naked in their bathtub. You need to get up, quick!
 
-You wake up still in the bath, hearing sounds of movement coming from the outside. Oh, shit, you fell asleep for how long in this bath? And now someone was coming in and about to find you naked in their bathtub. You need to get up, quick!
-
-(link: &quot;Get up.&quot;)[====
-
-Lifting your body off the water, you realize it feels lighter. The water drips off it in unfamiliar ways, and when you look at yourself, the shock is so great you fall back in the soapy water.
+(link: &quot;Get up.&quot;)[====Lifting your body off the water, you realize it feels lighter. The water drips off it in unfamiliar ways, and when you look at yourself, the shock is so great you fall back in the soapy water.
 
 ($wifeImage: &quot;bathtub&quot;, &quot;Bath&quot;)
 
@@ -571,15 +570,11 @@ With the fireplace crackling and the fur coat over your body, you are sure you c
   ]
 }</tw-passagedata><tw-passagedata pid="22" name="In The Crib" tags="ending" position="801,1347" size="100,100">You wake up still in bed with the sound of steps coming up the stairs. As you recover conscience, you feel the bed isn&#39;t as comfy as you reember lying on it...
 
-(link: &quot;Get up.&quot;)[====
-
-You lift your body, with some help from the bars around you, hearing an odd crinkling sound as you move in confusion...
+(link: &quot;Get up.&quot;)[====You lift your body, with some help from the bars around you, hearing an odd crinkling sound as you move in confusion...
 
 ...Wait, bars? Why are there pink bars around this bed, which has, in fact, seemingly become a lot smaller?!
 
-(link: &quot;Look at yourself.&quot;)[====
-
-You do not recall undressing yourself before going to be, and you certainly do not recall dressing up in a dress and diapers, or putting a pacifier in your mouth, and yet...
+(link: &quot;Look at yourself.&quot;)[====You do not recall undressing yourself before going to be, and you certainly do not recall dressing up in a dress and diapers, or putting a pacifier in your mouth, and yet...
 
 ($wifeImage: &quot;baby&quot;, &quot;Sleep (Bedroom)&quot;)
 
@@ -599,15 +594,11 @@ As he softly laughs and pats you on the head again, you feel your intelligence s
 
 &lt;strong&gt;Congratulations! You&#39;ve done absolutely nothing useful, and now you&#39;ll never have to worry about that for a long long time, as you&#39;ve been mercifully adopted by the master of the house!&lt;/strong&gt;</tw-passagedata><tw-passagedata pid="23" name="The Good Wife" tags="ending" position="917,1433" size="100,100">You wake up, and your realize you&#39;re not on the bed anymore. How strange... seemingly, you are kneeling on the cold kitchen floor.
 
-(link: &quot;Get up.&quot;)[====
-
-You feel the will to get up cross your mind, but instead your hand reach for a sponge...
+(link: &quot;Get up.&quot;)[====You feel the will to get up cross your mind, but instead your hand reach for a sponge...
 
 ...and that&#39;s when you see you have impeccable nail polish on!
 
-(link: &quot;Get up!&quot;)[====
-
-Again, your will fails to form into action, but this time you finally catch a glimpse of the bigger picture in what&#39;s going on with you, as you notice your reflection on the squeaky clean floor, and you see your bright make-up and your hair, which you did not remember at all having put into curlers!
+(link: &quot;Get up!&quot;)[====Again, your will fails to form into action, but this time you finally catch a glimpse of the bigger picture in what&#39;s going on with you, as you notice your reflection on the squeaky clean floor, and you see your bright make-up and your hair, which you did not remember at all having put into curlers!
 
 ($wifeImage: &quot;housewife&quot;, &quot;Sleep (Bedroom)&quot;)
 
@@ -619,17 +610,13 @@ An objection forms in your mind, reaching your throat and then turning around an
 
 &lt;strong&gt;Congratulations! You&#39;ve been very dutiful and dedicated to your house chores, and for that you have the honor of serving the master of the house for ever and ever!&lt;/strong&gt;</tw-passagedata><tw-passagedata pid="24" name="Work To Do" tags="ending" position="1145,1385" size="100,100">You wake up with a startle, with the sound of steps coming up the stairs. You get up quickly, not wanting to be caught sleeping by the owner of the bed... but as you hit the floor you suddenly lose your balance.
 
-(link: &quot;Hold on to something.&quot;)[====
-
-You support yourself on the near door frame, leaning against it and regaining balance... something is off about your feet, as if your ankles were inches away from the floor.
+(link: &quot;Hold on to something.&quot;)[====You support yourself on the near door frame, leaning against it and regaining balance... something is off about your feet, as if your ankles were inches away from the floor.
 
 As you look down your realize what&#39;s wrong: high heeled boots! You do not remember ever wearing them, or ever wearing such kind of shoes.
 
 You are taken by the eerie realization that maybe your footwear is not the only thing that&#39;s off about you at the moment, but you fear finding out what else might be...
 
-(link: &quot;Look at yourself.&quot;)[====
-
-As you give your own body a wider look, you realize the clothes you are wearing now are the black and white frilled uniform that certainly characterizes a maid, and which just perfectly contrast your tan skin...
+(link: &quot;Look at yourself.&quot;)[====As you give your own body a wider look, you realize the clothes you are wearing now are the black and white frilled uniform that certainly characterizes a maid, and which just perfectly contrast your tan skin...
 
 ($wifeImage: &quot;maid&quot;, &quot;Sleep (Bedroom)&quot;)
 
@@ -645,15 +632,11 @@ He finishes his sentence with a wry smile, and you also smile back, blushing gra
 
 &lt;strong&gt;Congratulations! You&#39;ve worked well and you may still continue to do so as a servant of the master of the house!&lt;/strong&gt;</tw-passagedata><tw-passagedata pid="25" name="The Sweet Wife" tags="ending" position="1023,1316" size="100,100">You wake up some time later, with a delicious sweet aroma in the air... you see yourself surrounded by treats, cakes, bonbons, macarons... oh, just the sight of those sweets made your mouth water so...
 
-(link: &quot;Eat some.&quot;)[====
-
-You take a baked treat and chew it down, feeling its sweet flavor fill your mouth... after you gulp it down, you take your cream covered fingers to your mouth, to lick them clean, and that&#39;s when you realize your nails are finely painted under all that sweet cream.
+(link: &quot;Eat some.&quot;)[====You take a baked treat and chew it down, feeling its sweet flavor fill your mouth... after you gulp it down, you take your cream covered fingers to your mouth, to lick them clean, and that&#39;s when you realize your nails are finely painted under all that sweet cream.
 
 Your sight goes from your manicured hands to the pastel tones of the lingerie you wear, and although your chubby body fills it with such grace and beauty, you also can&#39;t shake off the feeling that you were not wearing any of that frilly stylish lingerie... or had all those pounds, on that matter!
 
-(link: &quot;Eat another slice.&quot;)[====
-
-You quickly shove those thoughts away with a slice of a cake, the fondant making it so easy to forget your worries as you realize you have now the body of a large and beautiful woman.
+(link: &quot;Eat another slice.&quot;)[====You quickly shove those thoughts away with a slice of a cake, the fondant making it so easy to forget your worries as you realize you have now the body of a large and beautiful woman.
 
 ($wifeImage: &quot;sweet&quot;, &quot;Sleep (Bedroom)&quot;)
 
@@ -690,13 +673,9 @@ You gladly get up and pick another bonbon before skipping upstairs, taking the s
   ]
 }</tw-passagedata><tw-passagedata pid="27" name="The Cold Wife" tags="ending" position="802,938" size="100,100">You wake up, feeling colder than you remember as you drifted into sleep. The fire has gone and having the coat wrapped up around your body like a blanket is hardly working as intended.
 
-(link: &quot;Wear the coat properly.&quot;)[====
+(link: &quot;Wear the coat properly.&quot;)[====As you sit slightly to slip your arms into the sleeves of the coat, you realize what the problem has been the whole time: you certainly remember being dressed, albeit in clotehs that were wet with snow and cold from the freezing air, but now you only had lacy panties and stockings, surely those were not proper for this sort of wheater...
 
-As you sit slightly to slip your arms into the sleeves of the coat, you realize what the problem has been the whole time: you certainly remember being dressed, albeit in clotehs that were wet with snow and cold from the freezing air, but now you only had lacy panties and stockings, surely those were not proper for this sort of wheater...
-
-(link: &quot;Freak out.&quot;)[====
-
-It takes a while, but you finally realize that besides your clothes turning to sexy lingerie, your whole body has also became that of a woman, without explanation or reason.
+(link: &quot;Freak out.&quot;)[====It takes a while, but you finally realize that besides your clothes turning to sexy lingerie, your whole body has also became that of a woman, without explanation or reason.
 
 ($wifeImage: &quot;fur&quot;, &quot;Sleep (Living Room)&quot;)
 
@@ -710,15 +689,11 @@ He took you by his hand, his warm gentle hand, and helped you up and up the stai
 
 &lt;strong&gt;Congratulations! You might&#39;ve succumbed to exhaustion and the cold, but you are now sure to be safe and sound from the harsh winter as you submit your will to the master of the house!&lt;/strong&gt;</tw-passagedata><tw-passagedata pid="28" name="The Elf Maiden" tags="ending" position="810,692" size="100,100">You approach a quaint log cabin, with a warm glow coming from inside. Eager, you run through the snow, knowing in your heart that there was no way someone could refuse aiding a wanderer in such brutal weather conditions!
 
-(link: &quot;Knock at the door&quot;)[==
-
-You pound at the door, desperate for heat and shelter. The door opens, but as you storm in and the door closes again, the warmth of the fireplace replacing the chill upon your skin, you realize there was no one at the door at all.
+(link: &quot;Knock at the door&quot;)[==You pound at the door, desperate for heat and shelter. The door opens, but as you storm in and the door closes again, the warmth of the fireplace replacing the chill upon your skin, you realize there was no one at the door at all.
 
 Confused, you look at your surroundings, noticing the cozy hospitality of a table with a mug of steaming hot chocolate and a plate of warm cookies placed beside a folded card with a festive cursive text declaring &quot;Welcome!&quot;.
 
-(link: &quot;Walk to the table&quot;)[==
-
-The sound of jingle bells follows you at every step, eliciting an investigative reaction on you, and looking down you realize your outfit has been changed into something not only more festive, but also... much more feminine.
+(link: &quot;Walk to the table&quot;)[==The sound of jingle bells follows you at every step, eliciting an investigative reaction on you, and looking down you realize your outfit has been changed into something not only more festive, but also... much more feminine.
 
 ($wifeImage: &quot;elf&quot;, &quot;The Fog&quot;)
 
@@ -761,7 +736,7 @@ You sit on the sofa wondering what to think of all this... what is there to thin
 	(if: _firstVisit)[
 	  (set: $endings to it + (a: _wifeId))
 	]
-	(output:)[(print: &quot;&lt;img src=\&quot;img/house/&quot; + _wifeId + &quot;.jpg\&quot;&gt;&lt;/img&gt;&quot; + ($gtagEvent: &quot;twine_ending&quot;, (dm:
+	(output:)[(print: &quot;&lt;img class=\&quot;ending\&quot; src=\&quot;img/house/&quot; + _wifeId + &quot;.jpg\&quot;&gt;&lt;/img&gt;&quot; + ($gtagEvent: &quot;twine_ending&quot;, (dm:
 		&quot;ending_id&quot;, _wifeId,
 		&quot;endings&quot;, length of $endings,
 		&quot;tasks_done&quot;, (str: (floor: 100 * (1 - (length of $tasks_todo)/$total_tasks_todo))) + &quot;%&quot;,
