@@ -511,7 +511,7 @@ Your head is filled with thoughts you didn&#39;t want to think, but you were hel
 }
 ## Inventory
 (for: each _item, ...$inventory)[(print: _inventoryIndex&#39;s (_item))
-]</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,189" size="100,100">(if: (passage:)&#39;s tags contains &quot;ending&quot;)[(replace: ?sidebar)[
+]</tw-passagedata><tw-passagedata pid="16" name="Sidebar" tags="header" position="567,189" size="100,100">(if: (passage:)&#39;s tags does not contain &quot;ending&quot;)[(replace: ?sidebar)[
 (display: &quot;Endings Gallery&quot;)
 (display: &quot;Inventory&quot;)
 (display: &quot;History&quot;)
