@@ -735,10 +735,10 @@ You sit on the sofa wondering what to think of all this... what is there to thin
   &lt;!-- Google Analytics: Set Persistent Property --&gt;
   (set: $gtagSet to (macro: string-type _propertyName, any-type _data, [
   (output-data: &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;
-	gtag(&#39;set&#39;, &#39;&quot; + _propertyName + &quot;&#39;, &#39;&quot; + (str: _data) + &quot;&#39;);
+	gtag(&#39;set&#39;, \{&#39;&quot; + _propertyName + &quot;&#39;: &#39;&quot; + (str: _data) + &quot;&#39;\});
 &lt;/script&gt;&quot;)
   ]))
-  
+    
   &lt;!-- Ending Image Macro --&gt;
   (set: $wifeImage to (macro: string-type _wifeId, string-type _expectedPrevious, [
     (set: _firstVisit to ($endings does not contain _wifeId))
