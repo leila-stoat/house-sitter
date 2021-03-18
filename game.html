@@ -742,30 +742,36 @@ You sit on the sofa wondering what to think of all this... what is there to thin
   &lt;!-- Ending Image Macro --&gt;
   (set: $wifeImage to (macro: string-type _wifeId, string-type _expectedPrevious, [
     (set: _firstVisit to ($endings does not contain _wifeId))
+	(set: _lastEnding to &quot;&quot;)
+	(if: $endings&#39;s length &gt; 0)[(set: _lastEnding to $endings&#39;s last)]
 	(if: _firstVisit)[
 	  (set: $endings to it + (a: _wifeId))
 	]
 	(output:)[(print: &quot;&lt;img class=\&quot;ending\&quot; src=\&quot;img/house/&quot; + _wifeId + &quot;.jpg\&quot;&gt;&lt;/img&gt;&quot; + ($gtagEvent: &quot;twine_ending&quot;, (dm:
+	    &quot;game_title&quot;, &quot;The House Sitter&quot;,
+		&quot;last_ending&quot;, _lastEnding,
 		&quot;ending_id&quot;, _wifeId,
 		&quot;endings&quot;, length of $endings,
 		&quot;tasks_done&quot;, (str: (floor: 100 * (1 - (length of $tasks_todo)/$total_tasks_todo))) + &quot;%&quot;,
 		&quot;first_visit&quot;, _firstVisit,
 		&quot;sidebar&quot;, last of (history:) is not _expectedPrevious
-    )) + ($gtagSet: &quot;endings&quot;, length of $endings) + ($gtagSet: &quot;last_ending&quot;, _wifeId))]
+    )))]
   ]))
 }</tw-passagedata><tw-passagedata pid="30" name="Try Again" tags="footer" position="561,36" size="100,100">(if: (passage:)&#39;s tags contains &quot;ending&quot; and $endings&#39;s length &gt; 0)[&lt;hr/&gt;
 &lt;em&gt;[[Try Again?-&gt;New Game+]]&lt;/em&gt;
 
 &lt;em&gt;(link: &quot;Care for a hint?&quot;)[(display: &quot;Hint&quot;)]&lt;em&gt;
 ]</tw-passagedata><tw-passagedata pid="31" name="New Game+" tags="" position="419,37" size="100,100">(display: &quot;Round Initialization&quot;)
-(display: &quot;Intro&quot;)
-{==
-($gtagSet: &quot;play_count&quot;, (count: (history:), &quot;New Game+&quot;) + 1)
+(set: $play_count to it + 1)
 ($gtagEvent: &quot;twine_new_game&quot;, (dm:
-    &quot;endings&quot;, length of $endings))</tw-passagedata><tw-passagedata pid="32" name="Game Initialization" tags="startup" position="117,187" size="100,100">{
-  ($gtagSet: &quot;game_title&quot;, &quot;The House Sitter&quot;)
-  ($gtagSet: &quot;play_count&quot;, 0)
-  ($gtagEvent: &quot;twine_start&quot;, (dm:))
+    &quot;game_title&quot;, &quot;The House Sitter&quot;,
+	&quot;play_count&quot;, $play_count,
+    &quot;endings&quot;, length of $endings))
+(goto: &quot;The Porch&quot;)</tw-passagedata><tw-passagedata pid="32" name="Game Initialization" tags="startup" position="117,187" size="100,100">{
+  (set: $play_count to 0)
+  ($gtagEvent: &quot;twine_start&quot;, (dm:
+  &quot;game_title&quot;, &quot;The House Sitter&quot;,
+  &quot;play_count&quot;, 0))
   (set: $endings to (a:))
 }
 
@@ -786,8 +792,14 @@ You sit on the sofa wondering what to think of all this... what is there to thin
 	(link-goto: _ending&#39;s value)
   ](else:)[
     ????
-  ]}]</tw-passagedata><tw-passagedata pid="34" name="Hint" tags="" position="703,32" size="100,100">{
-($gtagEvent: &quot;twine_hint&quot;, (dm:))
+  ]}]</tw-passagedata><tw-passagedata pid="34" name="Hint" tags="" position="702,32" size="100,100">{
+(set: _lastEnding to &quot;&quot;)
+(if: $endings&#39;s length &gt; 0)[(set: _lastEnding to $endings&#39;s last)]
+($gtagEvent: &quot;twine_hint&quot;, (dm:
+    &quot;game_title&quot;, &quot;The House Sitter&quot;,
+	&quot;play_count&quot;, $play_count,
+	&quot;endings&quot;, length of $endings,
+	&quot;last_ending&quot;, _lastEnding))
 (cond:
 	$endings&#39;s last is &quot;elf&quot;, &quot;Perhaps you should go in and warm yourself. I&#39;m sure it can&#39;t get worse than it got already...&quot;,
 	$endings&#39;s last is &quot;sissy&quot;, &quot;Wandering around can be dangerous, so try to plan carefully and pick everything you need at once instead of going in and out willy-nilly...&quot;,
